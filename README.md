@@ -24,93 +24,28 @@ We will use Manhattan because it can represent counts
 
 UML:
 
-class readCSVScanner{
+UserEmailCSV
 
-
-
+EmailStore{
+    storeEmail() : String
 }
 
-class email{
-
-}
-class phrase_amount{
-
-}
-class word_amount{
-
-}
-class letter_amount{
-
-}
-class a_count{
-
-}
-class the_count{
-    
-}
-class is_count{
-    
-}
-class day_count{
-    
+readCSVScanner{
+ parseFile(): void  
 }
 
-
-
-class Node {
-          -left : Node
-          -right : Node
-          -op : Op
-          +Node(op: Binop, left: Node, right: Node)
-          +Node(op: Unop)
-          +eval(values: double[]) double
+EmailProcessor{
+    +processCsvStats() : String
 }
-      Op <|-- Binop
-      Op <|-- Unop
-      Unop <|-- Const
-      Unop <|-- Variable
-      Binop <|-- Plus
-      Binop <|-- Minus
-      Binop <|-- Divide
-      Binop <|-- Mult
-      class Const{
-         -value : double
-         +eval(values: double[]) double
-         +toString() String
-      }
-      class Variable{
-         -index : int
-         +eval(values: double[]) double
-         +toString() String
-      }
-      
-      class Binop {
-         +eval(left: double, right: double)* double
-      }
 
-      class Unop {
-         +eval(values: double)* double
-      }
-      class Plus{
-          +eval(left, right) double
-          +toString() String
-      }
-      class Minus{
-          +eval(left, right) double
-          +toString() String
-      }
-      class Mult{
-          +eval(left, right) double
-          +toString() String
-      }
-      class Divide{
-          +eval(left, right) double
-          +toString() String
-      }
-      class TestAlgebra {
-          +main(args: String[] )$
-	  +randOperator(left: Node,right:Node)$ Node
-	  +randConst()$ Node
-	  +randVariable()$ Node
-	  +randLeaf()$ Node
-      }
+EmailStats{
+    phrase_amount : int 
+    word_amount : int
+    letter_amount : int
+    a_count : int
+    the_count : int
+    is_count : int
+    day_count : int
+
+    +toString(): String
+}
