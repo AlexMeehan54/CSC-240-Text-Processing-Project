@@ -24,6 +24,7 @@ We will use Manhattan because it can represent counts
 
 UML:
 
+```
 UserEmailCSV
 
 EmailStore{
@@ -49,3 +50,4 @@ EmailStats{
 
     +toString(): String
 }
+```
