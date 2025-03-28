@@ -28,11 +28,11 @@ UML:
 UserEmailCSV
 
 EmailStore{
-    storeEmail() : String
+    +storeEmail() : String
 }
 
 readCSVScanner{
- parseFile(): void  
+    +parseFile(): void  
 }
 
 EmailProcessor{
