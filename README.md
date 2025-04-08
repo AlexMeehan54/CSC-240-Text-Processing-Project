@@ -28,26 +28,28 @@ UML:
 UserEmailCSV
 
 EmailStore{
-    +storeEmail() : String
+-emails: List<String>
+   	+storeEmail(email String) : void
 }
 
+//all data sets are called here
 readCSVScanner{
-    +parseFile(): void  
++parseFile(): void  
++getEmailFromCSV(filepath : string)
 }
+
 
 EmailProcessor{
-    +processCsvStats() : String
+    +processCSVStats(email String) : String
+
 }
 
 EmailStats{
-    phrase_amount : int 
-    word_amount : int
-    letter_amount : int
-    a_count : int
-    the_count : int
-    is_count : int
-    day_count : int
+	User_name : string
+  	phrase_amount : int 
+ 	word_amount : int
+ 	letter_amount : int
 
-    +toString(): String
+	+EmailStats(User_name : string, phrase_amount : int, word_amount : int, letter_amount : int)
++toString : String
 }
-```

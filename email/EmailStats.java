@@ -1,8 +1,6 @@
 package email;
 class EmailStats {
 
-    +toString(): String
-
     int phrase_amount;
     int word_amount;
     int letter_amount;

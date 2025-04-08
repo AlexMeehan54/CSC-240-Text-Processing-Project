@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "readCSVScanner",
+      "request": "launch",
+      "mainClass": "email.readCSVScanner",
+      "projectName": "CSC-240-Text-Processing-Project_1f782a90"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
