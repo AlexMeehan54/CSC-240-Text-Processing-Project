@@ -10,8 +10,14 @@ public class readCSVScanner {
         readCSVScanner read = new readCSVScanner();
         System.out.println(read.getEmailListFromCSV("./csv/UserEmail.csv"));
     }
+    
+    public EmailStore(){
+        //String[] myArray = myStr.split(delimeter);
+        
+    }
+
     public LinkedList<EmailStats> getEmailListFromCSV(String filePath) {
-        LinkedList<EmailStats> emailList = new LinkedList<>();
+        LinkedList<EmailStats> emailList = new LinkedList<>(); //email stats
         try{
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
 
@@ -20,13 +26,16 @@ public class readCSVScanner {
             reader.readLine();
             while ((line = reader.readLine()) != null){
                 System.out.println(line);
+                EmailStats eStats = new EmailStats();
+
+                eStats.
             }
 
             if ((line = reader.readLine()) == null){
 
             }
             
-           
+
 
         }
         catch (IOException e) {

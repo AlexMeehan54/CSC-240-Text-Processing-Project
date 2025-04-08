@@ -10,6 +10,10 @@ class EmailStats {
         this.word_amount = word_amount;
         this.letter_amount = letter_amount;
     }
+
+    public EmailStats(){
+        
+    }
     
     public String toString() {
         return phrase_amount + word_amount + letter_amount;
