@@ -3,6 +3,7 @@ package email;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class readCSVScanner {
@@ -10,46 +11,44 @@ public class readCSVScanner {
         readCSVScanner read = new readCSVScanner();
         System.out.println(read.getEmailListFromCSV("./csv/UserEmail.csv"));
     }
-    
-    public EmailStore(){
-        //String[] myArray = myStr.split(delimeter);
-        
-    }
+    ArrayList<EmailStore> emailList = new ArrayList<>(); //email in list
 
-    public LinkedList<EmailStats> getEmailListFromCSV(String filePath) {
-        LinkedList<EmailStats> emailList = new LinkedList<>(); //email stats
+    public ArrayList<EmailStore> getEmailListFromCSV(String filePath){
+        //String[] myArray = myStr.split(delimeter);
+    
         try{
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            StringBuilder builder = new StringBuilder();
 
-            
+            //Turns the CSV into a big string. We use builder because buffering each line is faster then just adding it with +
             String line = null;
             reader.readLine();
             while ((line = reader.readLine()) != null){
-                System.out.println(line);
-                EmailStats eStats = new EmailStats();
-
-                eStats.
+                builder.append(line).append("\n");
             }
 
-            if ((line = reader.readLine()) == null){
-
+            //takes the big string we just made with builder and sends it to Email store. 
+            EmailStore allEmails = new EmailStore(builder.toString());
+            for (String email : allEmails.getSeparatedEmails()) {
+                emailList.add(new EmailStore(email));
             }
-            
-
-
         }
         catch (IOException e) {
             System.out.println("File not found");
         }
         return emailList;
     }
+
+    public LinkedList<EmailStats> getEmailStatsFromArray(ArrayList<EmailStore> emailList){
+        LinkedList<EmailStats> emailStats = new LinkedList<>();
+
+        
+        return emailStats;
     }
-
-
 /* 
     readCSVScanner{
         +parseFile(): void  
         +getEmailFromCSV(filepath : string)
     }
         */
-
+}
