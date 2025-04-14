@@ -42,6 +42,9 @@ public class readCSVScanner {
     public LinkedList<EmailStats> getEmailStatsFromArray(ArrayList<EmailStore> emailList){
         LinkedList<EmailStats> emailStats = new LinkedList<>();
 
+        for (EmailStore email : emailList) {
+            
+        }
         
         return emailStats;
     }
