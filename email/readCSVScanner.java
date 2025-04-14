@@ -10,8 +10,10 @@ public class readCSVScanner {
     public static void main (String[] args){
         readCSVScanner read = new readCSVScanner();
         System.out.println(read.getEmailListFromCSV("./csv/UserEmail.csv"));
+        System.out.println(read.getEmailStatsFromArray(read.emailList));
     }
-    ArrayList<EmailStore> emailList = new ArrayList<>(); //email in list
+
+    public ArrayList<EmailStore> emailList = new ArrayList<>(); //email in list
 
     public ArrayList<EmailStore> getEmailListFromCSV(String filePath){
         //String[] myArray = myStr.split(delimeter);
@@ -41,9 +43,17 @@ public class readCSVScanner {
 
     public LinkedList<EmailStats> getEmailStatsFromArray(ArrayList<EmailStore> emailList){
         LinkedList<EmailStats> emailStats = new LinkedList<>();
-
+        int i = 0;
+    
         for (EmailStore email : emailList) {
-            
+            EmailStats EmSt = new EmailStats();
+        
+            EmSt.phrase_amount(emailList.get(i));
+            EmSt.word_amount(emailList.get(i));
+            EmSt.letter_amount(emailList.get(i));
+
+            emailStats.add(EmSt);
+            i++;
         }
         
         return emailStats;
