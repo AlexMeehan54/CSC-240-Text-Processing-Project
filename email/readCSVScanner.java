@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class readCSVScanner {
     public static void main (String[] args){
         readCSVScanner read = new readCSVScanner();
-        System.out.println(read.getEmailListFromCSV("./csv/UserEmail.csv"));
+        System.out.println(read.getEmailListFromCSV("./csv/spam_or_not_spam.csv"));
         System.out.println(read.getEmailStatsFromArray(read.emailList));
     }
 
