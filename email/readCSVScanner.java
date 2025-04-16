@@ -48,6 +48,7 @@ public class readCSVScanner {
         for (EmailStore email : emailList) {
             EmailStats EmSt = new EmailStats();
         
+            EmSt.which_email(i);
             EmSt.phrase_amount(emailList.get(i));
             EmSt.word_amount(emailList.get(i));
             EmSt.letter_amount(emailList.get(i));
