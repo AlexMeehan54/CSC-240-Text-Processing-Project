@@ -7,18 +7,35 @@ class EmailStats {
     int phrase_amount;
     int word_amount;
     int letter_amount;
+    Boolean spam;
   
-    public EmailStats(int which_email, int phrase_amount, int word_amount, int letter_amount){
+    String nonSpamWords[] = { "name"}; //"the" , "and" , "hello" , "dear" , "sincerely" , "thank you" , "from" , " i " , " a " ,
+
+    public EmailStats(int which_email, int phrase_amount, int word_amount, int letter_amount, Boolean spam){
         this.which_email = which_email;
         this.phrase_amount = phrase_amount;
         this.word_amount = word_amount;
         this.letter_amount = letter_amount;
+        this.spam = false;
     }
 
     public EmailStats(){
     }
     
+    public Boolean spam (EmailStore email){
+        String convert = email.toString().toLowerCase();
+        for (int i = 0; i < nonSpamWords.length; i++){
+            int notFound = convert.indexOf(nonSpamWords[i]);
+            if (notFound != -1){
+                this.spam = false;
+                return false;
+            }
+        }
+        this.spam = true; //updates
+        return true;
+    }
  
+
     public int which_email(int email){
         int emailCount = email + 1;
         this.which_email = emailCount;
@@ -58,6 +75,6 @@ class EmailStats {
 
     @Override
     public String toString() {
-        return "\nEmail number " + which_email + "\namount of times the word 'me' was used: " + phrase_amount + "\nword amount: " + word_amount + "\nAmount of Characters in Email: " + letter_amount + "\n";
+        return "\nEmail number " + which_email + "\namount of times the word 'me' was used: " + phrase_amount + "\nword amount: " + word_amount + "\nAmount of Characters in Email: " + letter_amount + "\nIs spam: "  + spam + "\n";
     }
 }

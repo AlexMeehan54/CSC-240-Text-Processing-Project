@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class readCSVScanner {
     public static void main (String[] args){
         readCSVScanner read = new readCSVScanner();
-        System.out.println(read.getEmailListFromCSV("./csv/spam_or_not_spam.csv"));
+        read.getEmailListFromCSV("./csv/spam_or_not_spam.csv");
         System.out.println(read.getEmailStatsFromArray(read.emailList));
     }
 
@@ -43,18 +43,19 @@ public class readCSVScanner {
 
     public LinkedList<EmailStats> getEmailStatsFromArray(ArrayList<EmailStore> emailList){
         LinkedList<EmailStats> emailStats = new LinkedList<>();
-        int i = 0;
+        //int i = 0;
     
-        for (EmailStore email : emailList) {
+        for (int i = 0; i<20; i++) {
             EmailStats EmSt = new EmailStats();
         
             EmSt.which_email(i);
             EmSt.phrase_amount(emailList.get(i));
             EmSt.word_amount(emailList.get(i));
             EmSt.letter_amount(emailList.get(i));
+            EmSt.spam(emailList.get(i));
 
             emailStats.add(EmSt);
-            i++;
+            //i++;
         }
         
         return emailStats;
