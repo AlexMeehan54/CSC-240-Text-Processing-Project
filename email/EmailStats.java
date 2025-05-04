@@ -9,7 +9,9 @@ class EmailStats {
     int letter_amount;
     Boolean spam;
   
-    String nonSpamWords[] = { "name"}; //"the" , "and" , "hello" , "dear" , "sincerely" , "thank you" , "from" , " i " , " a " ,
+
+    //FIND DUPLICATE EMAILS
+    String SpamWords[] = {"click" , "free" , "top" , "sell" , "hyperlink", "porn", "access", "sign", "subscribe", "subscription", "insurance", "offer", "lucky", "member", "register", "deal"};
 
     public EmailStats(int which_email, int phrase_amount, int word_amount, int letter_amount, Boolean spam){
         this.which_email = which_email;
@@ -23,16 +25,29 @@ class EmailStats {
     }
     
     public Boolean spam (EmailStore email){
+        int totalSpamCount = 0;
         String convert = email.toString().toLowerCase();
-        for (int i = 0; i < nonSpamWords.length; i++){
-            int notFound = convert.indexOf(nonSpamWords[i]);
-            if (notFound != -1){
-                this.spam = false;
-                return false;
+        
+        for (int i = 0; i < SpamWords.length; i++){
+            //int notFound = convert.indexOf(SpamWords[i]);
+            String[] words = convert.split(SpamWords[i]);
+            //System.out.println(notFound);
+            /* 
+            if (notFound != -1){ //not negative 1 
+                this.spam = true;
+                return true;
             }
+            */
+            totalSpamCount = totalSpamCount + (words.length - 1);
         }
-        this.spam = true; //updates
-        return true;
+        //System.out.println(totalSpamCount);
+        if (totalSpamCount>5){
+            this.spam = true;
+            return true;
+        } else {
+            this.spam = false; //updates
+            return false;
+        }
     }
  
 
@@ -77,4 +92,5 @@ class EmailStats {
     public String toString() {
         return "\nEmail number " + which_email + "\namount of times the word 'me' was used: " + phrase_amount + "\nword amount: " + word_amount + "\nAmount of Characters in Email: " + letter_amount + "\nIs spam: "  + spam + "\n";
     }
+    
 }
