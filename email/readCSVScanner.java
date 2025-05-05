@@ -11,12 +11,16 @@ public class readCSVScanner {
     public static void main (String[] args){
         readCSVScanner read = new readCSVScanner();
         read.getEmailListFromCSV("./csv/spam_or_not_spam.csv");
-
-        System.out.println(read.getTrainingEmailStatsFromArray(read.emailList));
-        System.out.println(read.getTestingEmailStatsFromArray(read.emailList));
+     
+        read.getTrainingEmailStatsFromArray(read.emailList);
+        
+        read.getTestingEmailStatsFromArray(read.emailList);
+        System.out.println();
         
     }
     public ArrayList<EmailStore> emailList = new ArrayList<>(); //email in list
+    public LinkedList<Integer> spamList = new LinkedList<>();
+    public LinkedList<Integer> hamList = new LinkedList<>();
 
     public ArrayList<EmailStore> getEmailListFromCSV(String filePath){
         //String[] myArray = myStr.split(delimeter);
@@ -47,39 +51,58 @@ public class readCSVScanner {
     }
 
     public LinkedList<EmailStats> getTrainingEmailStatsFromArray(ArrayList<EmailStore> emailList){
-        LinkedList<EmailStats> testingEmails = new LinkedList<>();
+        LinkedList<EmailStats> testingEmails = new LinkedList<>();// <- Trainging SET: 2600 emails
         //int i = 0;
-    
+      
         for (int i = 0; i<2600; i++) { //testing class
             EmailStats EmSt = new EmailStats();
-        
-            EmSt.which_email(i);
-            EmSt.phrase_amount(emailList.get(i));
-            EmSt.word_amount(emailList.get(i));
-            EmSt.letter_amount(emailList.get(i));
-            EmSt.spam(emailList.get(i));
 
-            testingEmails.add(EmSt);
-            //i++;
-          
+            Boolean isSpam = EmSt.spam(emailList.get(i));
+            int spamCount = EmSt.spam_Amount(emailList.get(i));
+
+          if (!isSpam) { 
+            hamList.add(spamCount); 
+          } else {
+            spamList.add(spamCount);
+          }
+            //testingEmails.add(EmSt);
         }
+        
+        EmailStats EmailStats = new EmailStats();
+        double spamAverage = EmailStats.getAverage(spamList);
+        double hamAverage = EmailStats.getAverage(hamList);
+
+        //System.out.println(spamList);
+        //System.out.println(hamList);
+
+        System.out.println("Average spam word count (spam emails): " + spamAverage);
+        System.out.println("Average ham word count (ham emails): " + hamAverage);
         return testingEmails;
     }
 
     public LinkedList<EmailStats> getTestingEmailStatsFromArray(ArrayList<EmailStore> emailList){
         LinkedList<EmailStats> testStats = new LinkedList<>();
     
-        for (int i = 2600; i < 3000; i++) { // <- TESTING SET: 400 emails
+    int correctPredictions = 0;
+    int total = 0;
+
+        for (int i = 2600; i < 3000; i++) { // TESTING SET
             EmailStats EmSt = new EmailStats();
+            EmailStore email = emailList.get(i);
     
-            EmSt.which_email(i);
-            EmSt.phrase_amount(emailList.get(i));
-            EmSt.word_amount(emailList.get(i));
-            EmSt.letter_amount(emailList.get(i));
-            EmSt.spam(emailList.get(i));
+            boolean predictedSpam = EmSt.spam(email);     // Your classifier
+            boolean actualSpam = email.isSpamLabel();     // You must have this method in EmailStore
     
+            if (predictedSpam == actualSpam) {
+                correctPredictions++;
+            }
+    
+            total++;
             testStats.add(EmSt);
         }
+    
+        double accuracy = (double) correctPredictions / total;
+        System.out.println("Testing Set Accuracy: " + (accuracy * 100) + "%");
     
         return testStats;
     }
