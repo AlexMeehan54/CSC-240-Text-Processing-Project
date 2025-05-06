@@ -29,12 +29,7 @@ class EmailStats {
             //int notFound = convert.indexOf(SpamWords[i]);
             String[] words = convert.split(SpamWords[i]);
             //System.out.println(notFound);
-            /* 
-            if (notFound != -1){ //not negative 1 
-                this.spam = true;
-                return true;
-            }
-            */
+         
             totalSpamCount = totalSpamCount + (words.length - 1);
         }
         //System.out.println(totalSpamCount);
