@@ -51,33 +51,43 @@ public class readCSVScanner {
     }
 
     public LinkedList<EmailStats> getTrainingEmailStatsFromArray(ArrayList<EmailStore> emailList){
-        LinkedList<EmailStats> testingEmails = new LinkedList<>();// <- Trainging SET: 2600 emails
-        //int i = 0;
-      
-        for (int i = 0; i<2600; i++) { //testing class
+        LinkedList<EmailStats> trainingStats = new LinkedList<>();
+    
+        int correctPredictions = 0;
+        int total = 0;
+    
+        for (int i = 0; i < 2600; i++) { // TRAINING SET
             EmailStats EmSt = new EmailStats();
-
-            Boolean isSpam = EmSt.spam(emailList.get(i));
-            int spamCount = EmSt.spam_Amount(emailList.get(i));
-
-          if (!isSpam) { 
-            hamList.add(spamCount); 
-          } else {
-            spamList.add(spamCount);
-          }
-            //testingEmails.add(EmSt);
+            EmailStore email = emailList.get(i);
+    
+            boolean predictedSpam = EmSt.spam(email);
+            boolean actualSpam = email.isSpamLabel(); // This method must be implemented in EmailStore
+    
+            if (predictedSpam == actualSpam) {
+                correctPredictions++;
+            }
+    
+            int spamCount = EmSt.spam_Amount(email);
+            if (predictedSpam) {
+                spamList.add(spamCount);
+            } else {
+                hamList.add(spamCount);
+            }
+    
+            trainingStats.add(EmSt);
+            total++;
         }
-        
+    
         EmailStats EmailStats = new EmailStats();
         double spamAverage = EmailStats.getAverage(spamList);
         double hamAverage = EmailStats.getAverage(hamList);
-
-        //System.out.println(spamList);
-        //System.out.println(hamList);
-
+        double accuracy = (double) correctPredictions / total;
+    
         System.out.println("Average spam word count (spam emails): " + spamAverage);
         System.out.println("Average ham word count (ham emails): " + hamAverage);
-        return testingEmails;
+        System.out.println("Training Set Accuracy: " + (accuracy * 100) + "%");
+    
+        return trainingStats;
     }
 
     public LinkedList<EmailStats> getTestingEmailStatsFromArray(ArrayList<EmailStore> emailList){
@@ -106,10 +116,4 @@ public class readCSVScanner {
     
         return testStats;
     }
-/* 
-    readCSVScanner{
-        +parseFile(): void  
-        +getEmailFromCSV(filepath : string)
-    }
-        */
 }
